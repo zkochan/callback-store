@@ -1,0 +1,23 @@
+{
+  "name": "callback-store",
+  "version": "0.0.1",
+  "description": "A store for callbacks waiting for delayed response.",
+  "main": "./lib",
+  "scripts": {
+    "test": "mocha -R spec test/"
+  },
+  "keywords": [
+    "callback",
+    "rpc"
+  ],
+  "author": "Zoltan Kochan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zkochan/callback-store.git"
+  },
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "mocha": "^2.2.1"
+  }
+}
