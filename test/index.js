@@ -36,18 +36,7 @@ describe('CallbackStore', function() {
     var cid = callbackStore.add(noop);
     callbackStore.get(cid);
     var nothing = callbackStore.get(cid);
-    expect(nothing).to.be.null;
-  });
-
-  it('if request timed out the callback function is called with an error', function(done) {
-    var callbackStore = new CallbackStore({
-      ttl: 10
-    });
-    var cid = callbackStore.add(function(err) {
-      expect(err.message).to.be.equal('Response timed out.');
-      expect(callbackStore.get(cid)).to.be.null;
-      done();
-    });
+    expect(nothing).to.be.undefined;
   });
 
   describe('release', function() {
@@ -62,12 +51,12 @@ describe('CallbackStore', function() {
       expect(spy1.calledOnce).to.be.true;
       expect(spy1.getCall(0).args[0].message)
         .to.be.eq('Request callback was released.');
-      expect(callbackStore.get(cid1)).to.be.null;
+      expect(callbackStore.get(cid1)).to.be.undefined;
 
       expect(spy2.calledOnce).to.be.true;
       expect(spy2.getCall(0).args[0].message)
         .to.be.eq('Request callback was released.');
-      expect(callbackStore.get(cid2)).to.be.null;
+      expect(callbackStore.get(cid2)).to.be.undefined;
     });
   });
 
@@ -77,7 +66,7 @@ describe('CallbackStore', function() {
     var cid = callbackStore.add(spy);
     callbackStore.exec(cid, 1, [2, 3]);
 
-    expect(callbackStore.get(cid)).to.be.null;
+    expect(callbackStore.get(cid)).to.be.undefined;
     expect(spy.calledOnce).to.be.true;
     expect(spy.calledOn(1)).to.be.true;
     expect(spy.calledWithExactly(2, 3)).to.be.true;
