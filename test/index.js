@@ -10,9 +10,10 @@ describe('CallbackStore', function() {
   it('add throws error if not function passed', function() {
     var callbackStore = new CallbackStore();
     expect(function() {
-        callbackStore.add(14);
-      })
-      .to.throw(Error, 'Invalid argument passed to CallbackStore.add. Function expected but got `number`.');
+      callbackStore.add(14);
+    })
+    .to.throw(Error, 'Invalid argument passed to CallbackStore.add. ' +
+      'Function expected but got `number`.');
   });
 
   it('returns correct callback', function(done) {
@@ -59,12 +60,26 @@ describe('CallbackStore', function() {
       callbackStore.releaseAll();
 
       expect(spy1.calledOnce).to.be.true;
-      expect(spy1.getCall(0).args[0].message).to.be.equal('Request callback was released.');
+      expect(spy1.getCall(0).args[0].message)
+        .to.be.eq('Request callback was released.');
       expect(callbackStore.get(cid1)).to.be.null;
 
       expect(spy2.calledOnce).to.be.true;
-      expect(spy2.getCall(0).args[0].message).to.be.equal('Request callback was released.');
+      expect(spy2.getCall(0).args[0].message)
+        .to.be.eq('Request callback was released.');
       expect(callbackStore.get(cid2)).to.be.null;
     });
+  });
+
+  it('exec applies the correct arguments and context', function() {
+    var spy = sinon.spy();
+    var callbackStore = new CallbackStore();
+    var cid = callbackStore.add(spy);
+    callbackStore.exec(cid, 1, [2, 3]);
+
+    expect(callbackStore.get(cid)).to.be.null;
+    expect(spy.calledOnce).to.be.true;
+    expect(spy.calledOn(1)).to.be.true;
+    expect(spy.calledWithExactly(2, 3)).to.be.true;
   });
 });

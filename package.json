@@ -1,6 +1,6 @@
 {
   "name": "callback-store",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A store for callbacks waiting for delayed response.",
   "main": "./lib",
   "scripts": {
