@@ -24,8 +24,5 @@
     "chai": "^2.2.0",
     "mocha": "^2.2.1",
     "sinon": "^1.15.4"
-  },
-  "dependencies": {
-    "bind-ponyfill": "^0.1.0"
   }
 }

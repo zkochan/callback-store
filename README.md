@@ -17,17 +17,17 @@ npm install --save callback-store
 ## Usage
 
 ```js
-var CallbackStore = require('callback-store');
+var CallbackStore = require('callback-store')
 
-var cbStore = new CallbackStore();
+var cbStore = new CallbackStore()
 var cid = cbStore.add(function() {
-  console.log('Hello world!');
-});
+  console.log('Hello world!')
+})
 
 /* ... */
 
-var cb = cbStore.get(cid);
-cb();
+var cb = cbStore.get(cid)
+cb()
 ```
 
 
