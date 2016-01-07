@@ -15,6 +15,9 @@
     "email": "zoltan.kochan@gmail.com",
     "url": "http://kochan.io"
   },
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,6 +26,10 @@
   "devDependencies": {
     "chai": "^2.2.0",
     "mocha": "^2.2.1",
-    "sinon": "^1.15.4"
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
+  },
+  "dependencies": {
+    "kamikaze": "^1.0.0"
   }
 }
