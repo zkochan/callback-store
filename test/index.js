@@ -11,31 +11,40 @@ chai.use(sinonChai)
 function noop() {}
 
 describe('CallbackStore', function() {
-  it('add throws error if not function passed', function() {
+  it('should throw error if no callback passed', function() {
     let callbackStore = new CallbackStore()
-    expect(() => callbackStore.add(14))
-      .to.throw(Error, 'Invalid argument passed to CallbackStore.add. ' +
-        'Function expected but got `number`.')
+    expect(() => callbackStore.add(1, 14)).to.throw(Error)
   })
 
-  it('returns correct callback', function(done) {
+  it('should throw error if no id passed', function() {
     let callbackStore = new CallbackStore()
-    let cid = callbackStore.add(done)
+    expect(() => callbackStore.add()).to.throw(Error)
+  })
+
+  it('should throw error if no ttl passed', function() {
+    let callbackStore = new CallbackStore()
+    expect(() => callbackStore.add(1, function() {})).to.throw(Error)
+  })
+
+  it('should throw error if not unique id', function() {
+    let callbackStore = new CallbackStore()
+    callbackStore.add(1, noop, 1e3)
+    expect(() => callbackStore.add(1, noop, 1e3)).to.throw(Error)
+  })
+
+  it('should return correct callback', function(done) {
+    let callbackStore = new CallbackStore()
+    let cid = 'foo'
+    callbackStore.add(cid, done, 1e3)
     let cb = callbackStore.get(cid)
     expect(cb).to.be.a('function')
     cb()
   })
 
-  it('returns different correlation IDs', function() {
+  it('should return callback only once', function() {
     let callbackStore = new CallbackStore()
-    let cid1 = callbackStore.add(noop)
-    let cid2 = callbackStore.add(noop)
-    expect(cid1).to.not.eq(cid2)
-  })
-
-  it('returns callback only once', function() {
-    let callbackStore = new CallbackStore()
-    let cid = callbackStore.add(noop)
+    let cid = 'foo'
+    callbackStore.add(cid, noop, 1e3)
     callbackStore.get(cid)
     let nothing = callbackStore.get(cid)
     expect(nothing).to.be.undefined
@@ -51,12 +60,11 @@ describe('CallbackStore', function() {
     })
 
     it('should release callback after timeout', function() {
-      let callbackStore = new CallbackStore({
-        ttl: 10,
-      })
+      let callbackStore = new CallbackStore()
 
       let spy = sinon.spy()
-      let cid = callbackStore.add(spy)
+      let cid = 'foo'
+      callbackStore.add(cid, spy, 10)
 
       this.clock.tick(20)
 
@@ -72,8 +80,10 @@ describe('CallbackStore', function() {
       let spy1 = sinon.spy()
       let spy2 = sinon.spy()
       let callbackStore = new CallbackStore()
-      let cid1 = callbackStore.add(spy1)
-      let cid2 = callbackStore.add(spy2)
+      let cid1 = '1'
+      callbackStore.add(cid1, spy1, 1e3)
+      let cid2 = '2'
+      callbackStore.add(cid2, spy2, 1e3)
       callbackStore.releaseAll()
 
       expect(spy1).to.have.been.calledOnce
