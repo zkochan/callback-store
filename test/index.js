@@ -71,26 +71,4 @@ describe('callback-store', function() {
         .to.be.eq('Method execution exceeded the time limit of `10`')
     })
   })
-
-  describe('release', function() {
-    it('should release all waiting callbacks', function() {
-      let spy1 = sinon.spy()
-      let spy2 = sinon.spy()
-      let cid1 = '1'
-      callbacks.add(cid1, spy1, 1e3)
-      let cid2 = '2'
-      callbacks.add(cid2, spy2, 1e3)
-      callbacks.releaseAll()
-
-      expect(spy1).to.have.been.calledOnce
-      expect(spy1.getCall(0).args[0].message)
-        .to.be.eq('Request callback was released.')
-      expect(callbacks.get(cid1)).to.be.undefined
-
-      expect(spy2).to.have.been.calledOnce
-      expect(spy2.getCall(0).args[0].message)
-        .to.be.eq('Request callback was released.')
-      expect(callbacks.get(cid2)).to.be.undefined
-    })
-  })
 })
