@@ -5,6 +5,7 @@ A store for callbacks waiting for delayed response.
 [![Dependency Status](https://david-dm.org/zkochan/callback-store/status.svg?style=flat)](https://david-dm.org/zkochan/callback-store)
 [![Build Status](https://travis-ci.org/zkochan/callback-store.svg?branch=master)](https://travis-ci.org/zkochan/callback-store)
 [![npm version](https://badge.fury.io/js/callback-store.svg)](http://badge.fury.io/js/callback-store)
+[![Coverage Status](https://coveralls.io/repos/github/zkochan/callback-store/badge.svg?branch=master)](https://coveralls.io/github/zkochan/callback-store?branch=master)
 
 
 ## Installation

@@ -4,7 +4,11 @@
   "description": "A store for callbacks waiting for delayed response.",
   "main": "./lib",
   "scripts": {
-    "test": "mocha -R spec test/"
+    "test": "mocha test/{**/,/}*.js",
+    "coverage": "istanbul cover _mocha test/{**/,/}*.js -- -R spec",
+    "precoveralls": "istanbul cover _mocha test/{**/,/}*.js --report lcovonly -- -R spec && npm i coveralls@2",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "postcoveralls": "rm -rf ./coverage"
   },
   "keywords": [
     "callback",
@@ -25,6 +29,7 @@
   },
   "devDependencies": {
     "chai": "^2.2.0",
+    "istanbul": "^0.4.2",
     "mocha": "^2.2.1",
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0"
