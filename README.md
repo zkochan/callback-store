@@ -17,10 +17,10 @@ npm install --save callback-store
 ## Usage
 
 ```js
-var CallbackStore = require('callback-store')
+const createCBStore = require('callback-store')
 
-var cbStore = new CallbackStore()
-var uid = Math.random()
+let cbStore = createCBStore()
+let uid = Math.random()
 cbStore.add(uid, function(err) {
   if (err) {
     /* An error will happen if the callback isn't executed during 5 seconds */
@@ -31,7 +31,7 @@ cbStore.add(uid, function(err) {
 
 /* ... */
 
-var cb = cbStore.get(uid)
+let cb = cbStore.get(uid)
 cb()
 ```
 
