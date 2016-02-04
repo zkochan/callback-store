@@ -35,6 +35,6 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
-    "kamikaze": "^1.0.0"
+    "kamikaze": "^1.1.0"
   }
 }

@@ -70,5 +70,16 @@ describe('callback-store', function() {
       expect(spy.getCall(0).args[0].message)
         .to.be.eq('Method execution exceeded the time limit of `10`')
     })
+
+    it('should stop callback timer after function returned', function() {
+      let spy = sinon.spy()
+      let cid = 'foo'
+      callbacks.add(cid, spy, 10)
+      var cb = callbacks.get(cid)
+
+      this.clock.tick(20)
+
+      expect(spy).to.not.have.been.called
+    })
   })
 })
