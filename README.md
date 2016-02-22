@@ -39,4 +39,4 @@ cb()
 
 ## License
 
-The MIT License (MIT)
+MIT © [Zoltan Kochan](https://www.kochan.io)
